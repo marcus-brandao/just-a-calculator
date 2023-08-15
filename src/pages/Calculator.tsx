@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Digit, Operator } from '../types';
 import Output from '../components/Output';
 import Keypad from '../components/Keypad';
