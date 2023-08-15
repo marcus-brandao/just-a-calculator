@@ -1,18 +1,27 @@
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Digit, Operator } from '../types';
 import Output from '../components/Output';
 import Keypad from '../components/Keypad';
+import { Alert, Button, Modal } from '@mui/material';
+import Login from '../components/Login';
+import axios from 'axios';
 // import { evaluate } from 'mathjs';
 
 function Calculator() {
+    const api = axios;
     const [memory, setMemory] = useState<number>(0);
     const [result, setResult] = useState<number>(0);
     const [waitingForOperand, setWaitingForOperand] = useState<boolean>(true);
     const [display, setDisplay] = useState<string>('0');
     const [expression, setExpression] = useState<string>('');
+    const [isLogged, setIsLogged] = useState(false);
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const evalExpression = (expression: string) => {
         let resultado = eval(expression);
@@ -146,10 +155,25 @@ function Calculator() {
         <div
             style={{
                 display: 'flex',
-                alignContent: 'center',
+                flexDirection: 'column',
+                alignItems: 'center',
                 justifyContent: 'center',
             }}
         >
+            {isLogged ? (
+                <Alert severity="success">You are logged in!</Alert>
+            ) : (
+                <Alert severity="warning">You are not logged in!</Alert>
+            )}
+            <Button onClick={handleOpen}>Login</Button>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Login isLogged={isLogged} setIsLogged={setIsLogged} />
+            </Modal>
             <CalculatorBase>
                 <Grid container spacing={2}>
                     <OutputContainer>
