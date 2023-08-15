@@ -20,39 +20,6 @@ function Calculator() {
         return resultado;
     };
 
-    const calculate = (
-        rightOperand: number,
-        pendingOperator: Operator
-    ): boolean => {
-        let newResult = result;
-
-        switch (pendingOperator) {
-            case '+':
-                newResult += rightOperand;
-                break;
-            case '-':
-                newResult -= rightOperand;
-                break;
-            case '×':
-                newResult *= rightOperand;
-                break;
-            case '÷':
-                if (rightOperand === 0) {
-                    return false;
-                }
-                newResult /= rightOperand;
-                break;
-            case '^':
-                newResult **= rightOperand;
-                break;
-        }
-
-        setResult(newResult);
-        setDisplay(newResult.toString().toString().slice(0, 12));
-
-        return true;
-    };
-
     // Pad buttons handlers
     const onDigitButtonClick = (digit: Digit) => {
         let newDisplay = display;
