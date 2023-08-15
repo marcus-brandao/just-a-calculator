@@ -96,9 +96,8 @@ function Keypad(props: KeypadProps) {
             <Grid xs={3}>
                 <Button
                     variant="outlined"
-                    onClick={() => {}}
+                    onClick={() => onOperatorButtonClick('%')}
                     sx={{ width: '100%' }}
-                    disabled
                 >
                     %
                 </Button>

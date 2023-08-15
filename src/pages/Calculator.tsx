@@ -8,12 +8,10 @@ import Keypad from '../components/Keypad';
 import { Alert, Button, Modal } from '@mui/material';
 import Login from '../components/Login';
 import axios from 'axios';
-// import { evaluate } from 'mathjs';
+import { evaluate } from 'mathjs';
 
 function Calculator() {
-    const api = axios;
     const [memory, setMemory] = useState<number>(0);
-    const [result, setResult] = useState<number>(0);
     const [waitingForOperand, setWaitingForOperand] = useState<boolean>(true);
     const [display, setDisplay] = useState<string>('0');
     const [expression, setExpression] = useState<string>('');
@@ -24,8 +22,8 @@ function Calculator() {
     const handleClose = () => setOpen(false);
 
     const evalExpression = (expression: string) => {
-        let resultado = eval(expression);
-        // let resultado = evaluate(expression);
+        // let resultado = eval(expression);
+        let resultado = evaluate(expression);
         return resultado;
     };
 
@@ -95,8 +93,9 @@ function Calculator() {
                 setExpression(expression + display + operator);
                 setDisplay('');
                 break;
-            // case '%':
-            //     break;
+            case '%':
+                setExpression(expression + operand / 100 + '*');
+                break;
             // case '√':
             //     setExpression(`${expression} sqrt()`);
             //     setDisplay('');
@@ -109,16 +108,12 @@ function Calculator() {
 
     const onEqualButtonClick = () => {
         const resultado = evalExpression(expression + display);
-
-        setResult(resultado);
-        console.log(resultado);
-        setDisplay(String(resultado));
+        setDisplay(String(resultado.toFixed(5)));
         setWaitingForOperand(true);
     };
 
     const onAllClearButtonClick = () => {
         setMemory(0);
-        setResult(0);
         setDisplay('0');
         setExpression('');
         setWaitingForOperand(true);
