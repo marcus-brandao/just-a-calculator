@@ -2,6 +2,10 @@
 
 Calculator made with React and Typescript, using a Nest.js back-end for authentication.
 
+## Limitations
+
+JavaScript struggles with maintaining precise calculations involving numbers. So, the calculator has a defined precision of three decimal places.
+
 ## Running the app
 
 First, you need to run the back-end application, [just an auth service](https://github.com/marcus-brandao/just-an-auth-service).
@@ -20,4 +24,4 @@ Runs the app at [http://localhost:3000](http://localhost:3000).
 The username and password combination needed to login at the application is:
 | **username** | **password** |
 |--------------|--------------|
-|     vial     |      cro     |
+| vial | cro |
