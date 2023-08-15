@@ -16,6 +16,7 @@ function Calculator() {
     const [display, setDisplay] = useState<string>('0');
     const [expression, setExpression] = useState<string>('');
     const [isLogged, setIsLogged] = useState(false);
+    const [isInvalid, setIsInvalid] = useState(false);
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -107,9 +108,15 @@ function Calculator() {
     };
 
     const onEqualButtonClick = () => {
-        const resultado = evalExpression(expression + display);
-        setDisplay(String(resultado.toFixed(5)));
-        setWaitingForOperand(true);
+        try {
+            const resultado = evalExpression(expression + display);
+            setDisplay(String(resultado.toFixed(3)));
+            setWaitingForOperand(true);
+            setIsInvalid(false);
+        } catch (error) {
+            console.log(error);
+            setIsInvalid(true);
+        }
     };
 
     const onAllClearButtonClick = () => {
@@ -179,6 +186,13 @@ function Calculator() {
                             expression={expression}
                         />
                     </OutputContainer>
+                    {isInvalid && (
+                        <Grid xs={12}>
+                            <Alert severity="warning">
+                                Invalid expression!
+                            </Alert>
+                        </Grid>
+                    )}
                     <Keypad
                         onAllClearButtonClick={onAllClearButtonClick}
                         onClearEntryButtonClick={onClearEntryButtonClick}
